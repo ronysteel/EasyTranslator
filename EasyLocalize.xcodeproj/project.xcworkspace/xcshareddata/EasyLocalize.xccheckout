@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>A64B95BB-4D17-4A39-9699-D3DAA5789907</string>
+	<key>IDESourceControlProjectName</key>
+	<string>EasyLocalize</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>B2CEA9F16FC94852A0B1F74B5CADFE65F428B51D</key>
+		<string>github.com:sebastato/EasyTranslator.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>EasyLocalize.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>B2CEA9F16FC94852A0B1F74B5CADFE65F428B51D</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:sebastato/EasyTranslator.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>B2CEA9F16FC94852A0B1F74B5CADFE65F428B51D</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>B2CEA9F16FC94852A0B1F74B5CADFE65F428B51D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>EasyLocalize</string>
+		</dict>
+	</array>
+</dict>
+</plist>
