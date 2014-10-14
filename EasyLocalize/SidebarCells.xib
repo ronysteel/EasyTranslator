@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6249" systemVersion="14A388a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6249"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <tableCellView identifier="SidebarTableCellView" translatesAutoresizingMaskIntoConstraints="NO" id="NAI-WU-98i" customClass="SidebarTableCellView">
+            <rect key="frame" x="0.0" y="0.0" width="333" height="64"/>
+            <subviews>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="tpD-ZS-u0S">
+                    <rect key="frame" x="18" y="26" width="309" height="28"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="24" id="InC-Gc-SMl"/>
+                    </constraints>
+                    <buttonCell key="cell" type="check" title="Checkbox" bezelStyle="regularSquare" imagePosition="left" alignment="left" lineBreakMode="truncatingHead" state="on" inset="2" id="fie-Gj-LcH" customClass="SidebarCheckboxCell">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="12" name="HelveticaNeue"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="checkboxClicked:" target="NAI-WU-98i" id="WQh-HT-hT7"/>
+                    </connections>
+                </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sQr-D5-9cu">
+                    <rect key="frame" x="39" y="12" width="32" height="18"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Total:" usesSingleLineMode="YES" id="Vx3-X4-hxa">
+                        <font key="font" size="12" name="HelveticaNeue-LightItalic"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RFb-pw-ohf">
+                    <rect key="frame" x="67" y="12" width="15" height="18"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="8" usesSingleLineMode="YES" id="5aO-pc-BJf">
+                        <font key="font" size="12" name="HelveticaNeue-LightItalic"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="81p-VK-adF">
+                    <rect key="frame" x="129" y="12" width="22" height="18"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="12" usesSingleLineMode="YES" id="xwp-c3-u8n">
+                        <font key="font" size="12" name="HelveticaNeue-LightItalic"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vy6-vz-Q4f">
+                    <rect key="frame" x="86" y="12" width="47" height="18"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Missing:" usesSingleLineMode="YES" id="AU8-GO-CLx">
+                        <font key="font" size="12" name="HelveticaNeue-LightItalic"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="sQr-D5-9cu" firstAttribute="top" secondItem="tpD-ZS-u0S" secondAttribute="baseline" id="3nf-pO-31y"/>
+                <constraint firstItem="RFb-pw-ohf" firstAttribute="leading" secondItem="sQr-D5-9cu" secondAttribute="trailing" id="4M8-d3-hyx"/>
+                <constraint firstAttribute="bottom" secondItem="sQr-D5-9cu" secondAttribute="bottom" constant="12" id="5Qu-BS-hnS"/>
+                <constraint firstAttribute="trailing" secondItem="tpD-ZS-u0S" secondAttribute="trailing" constant="8" id="Ggg-Vg-sAw"/>
+                <constraint firstItem="sQr-D5-9cu" firstAttribute="centerY" secondItem="vy6-vz-Q4f" secondAttribute="centerY" id="QXw-Bk-iuw"/>
+                <constraint firstItem="tpD-ZS-u0S" firstAttribute="leading" secondItem="NAI-WU-98i" secondAttribute="leading" constant="20" id="YDX-FH-uHg"/>
+                <constraint firstItem="RFb-pw-ohf" firstAttribute="centerY" secondItem="81p-VK-adF" secondAttribute="centerY" id="ZLM-s1-VOG"/>
+                <constraint firstItem="81p-VK-adF" firstAttribute="leading" secondItem="vy6-vz-Q4f" secondAttribute="trailing" id="bQC-ZV-VDR"/>
+                <constraint firstItem="vy6-vz-Q4f" firstAttribute="leading" secondItem="RFb-pw-ohf" secondAttribute="trailing" constant="8" id="mc0-eo-diB"/>
+                <constraint firstItem="RFb-pw-ohf" firstAttribute="baseline" secondItem="sQr-D5-9cu" secondAttribute="baseline" id="nSY-8N-EcK"/>
+                <constraint firstItem="tpD-ZS-u0S" firstAttribute="top" secondItem="NAI-WU-98i" secondAttribute="top" constant="12" id="sA7-FG-FBF"/>
+                <constraint firstItem="sQr-D5-9cu" firstAttribute="leading" secondItem="tpD-ZS-u0S" secondAttribute="leading" constant="21" id="zI0-6Q-7SA"/>
+            </constraints>
+            <connections>
+                <outlet property="checkBox" destination="tpD-ZS-u0S" id="IyM-W7-wSt"/>
+                <outlet property="labelMissing" destination="vy6-vz-Q4f" id="n3Z-Fz-Qnq"/>
+                <outlet property="labelMissingNo" destination="81p-VK-adF" id="IGV-Kr-V0i"/>
+                <outlet property="labelTotal" destination="sQr-D5-9cu" id="8Ul-gl-bCg"/>
+                <outlet property="labelTotalNo" destination="RFb-pw-ohf" id="1aY-tF-MLX"/>
+            </connections>
+            <point key="canvasLocation" x="286.5" y="165"/>
+        </tableCellView>
+    </objects>
+</document>

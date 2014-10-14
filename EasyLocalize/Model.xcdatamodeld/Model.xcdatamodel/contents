@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14A388a" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Language" representedClassName="Language" syncable="YES">
+        <attribute name="isSourceLanguage" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="languageCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="selected" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
+        <relationship name="localizableProject" maxCount="1" deletionRule="Nullify" destinationEntity="LocalizableProject" inverseName="languages" inverseEntity="LocalizableProject" syncable="YES"/>
+        <relationship name="localizedStrings" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="LocalizedString" inverseName="language" inverseEntity="LocalizedString" syncable="YES"/>
+    </entity>
+    <entity name="LocalizableFile" representedClassName="LocalizableFile" syncable="YES">
+        <attribute name="dataType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="headerString" attributeType="String" syncable="YES"/>
+        <attribute name="original" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="selected" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
+        <relationship name="localisationEntries" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="LocalizationEntry" inverseName="localizableFile" inverseEntity="LocalizationEntry" syncable="YES"/>
+        <relationship name="localizableProject" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LocalizableProject" inverseName="localizableFiles" inverseEntity="LocalizableProject" syncable="YES"/>
+    </entity>
+    <entity name="LocalizableProject" representedClassName="LocalizableProject" syncable="YES">
+        <relationship name="languages" toMany="YES" deletionRule="Cascade" destinationEntity="Language" inverseName="localizableProject" inverseEntity="Language" syncable="YES"/>
+        <relationship name="localizableFiles" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="LocalizableFile" inverseName="localizableProject" inverseEntity="LocalizableFile" syncable="YES"/>
+    </entity>
+    <entity name="LocalizationEntry" representedClassName="LocalizationEntry" syncable="YES">
+        <attribute name="identifier" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="note" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="localizableFile" maxCount="1" deletionRule="Nullify" destinationEntity="LocalizableFile" inverseName="localisationEntries" inverseEntity="LocalizableFile" syncable="YES"/>
+        <relationship name="localizedStrings" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="LocalizedString" inverseName="localizationEntry" inverseEntity="LocalizedString" syncable="YES"/>
+    </entity>
+    <entity name="LocalizedString" representedClassName="LocalizedString" syncable="YES">
+        <attribute name="modified" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="translatedString" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="language" maxCount="1" deletionRule="Nullify" destinationEntity="Language" inverseName="localizedStrings" inverseEntity="Language" syncable="YES"/>
+        <relationship name="localizationEntry" maxCount="1" deletionRule="Nullify" destinationEntity="LocalizationEntry" inverseName="localizedStrings" inverseEntity="LocalizationEntry" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="LocalizableFile" positionX="-63" positionY="-18" width="128" height="133"/>
+        <element name="LocalizationEntry" positionX="-36" positionY="54" width="128" height="103"/>
+        <element name="LocalizedString" positionX="-45" positionY="45" width="128" height="103"/>
+        <element name="LocalizableProject" positionX="-36" positionY="72" width="128" height="73"/>
+        <element name="Language" positionX="-27" positionY="72" width="128" height="118"/>
+    </elements>
+</model>

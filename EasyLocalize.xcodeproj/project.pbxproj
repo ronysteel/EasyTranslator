@@ -1,0 +1,633 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9E18E32E19E57AC200F902B3 /* LocalizedStringsTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E18E32D19E57AC200F902B3 /* LocalizedStringsTableView.m */; };
+		9E3BD7BF19E92F7900A8B03C /* LocalizedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3BD7BE19E92F7900A8B03C /* LocalizedString.m */; };
+		9E3BD7C219E92F7A00A8B03C /* LocalizableFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3BD7C119E92F7A00A8B03C /* LocalizableFile.m */; };
+		9E3BD7C519E92F7A00A8B03C /* LocalizationEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3BD7C419E92F7A00A8B03C /* LocalizationEntry.m */; };
+		9E3BD7C819E942C100A8B03C /* LocalizableProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3BD7C719E942C100A8B03C /* LocalizableProject.m */; };
+		9E3BD7CB19E99AA500A8B03C /* Language.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3BD7CA19E99AA500A8B03C /* Language.m */; };
+		9E42DD9B19E4561F006655B0 /* FetchResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E42DD9A19E4561F006655B0 /* FetchResultsController.m */; };
+		9E5203E819E1C120003A1145 /* ProjectDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E5203E719E1C120003A1145 /* ProjectDocument.m */; };
+		9E5203EC19E1C1AC003A1145 /* SingleFileWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E5203EB19E1C1AC003A1145 /* SingleFileWindowController.m */; };
+		9E5203F019E1C1BE003A1145 /* ProjectWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E5203EE19E1C1BE003A1145 /* ProjectWindowController.m */; };
+		9E5203F719E1E8C3003A1145 /* SingleFileSidebarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E5203F619E1E8C3003A1145 /* SingleFileSidebarController.m */; };
+		9E5203FA19E1E924003A1145 /* LocalizedStringsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E5203F919E1E924003A1145 /* LocalizedStringsTableViewController.m */; };
+		9E52040019E1F333003A1145 /* SidebarCells.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E5203FF19E1F333003A1145 /* SidebarCells.xib */; };
+		9E52040319E1F69D003A1145 /* SidebarTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E52040219E1F69D003A1145 /* SidebarTableCellView.m */; };
+		9E52040619E1FDBA003A1145 /* SidebarCheckboxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E52040519E1FDBA003A1145 /* SidebarCheckboxCell.m */; };
+		9E52040919E211D5003A1145 /* LanguageValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E52040819E211D5003A1145 /* LanguageValueTransformer.m */; };
+		9EBB5DE519E1B1BA00DC20BE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EBB5DE419E1B1BA00DC20BE /* AppDelegate.m */; };
+		9EBB5DE719E1B1BA00DC20BE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EBB5DE619E1B1BA00DC20BE /* main.m */; };
+		9EBB5DED19E1B1BA00DC20BE /* SingleFileDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EBB5DEC19E1B1BA00DC20BE /* SingleFileDocument.m */; };
+		9EBB5DF019E1B1BA00DC20BE /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9EBB5DEE19E1B1BA00DC20BE /* Model.xcdatamodeld */; };
+		9EBB5DF219E1B1BA00DC20BE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EBB5DF119E1B1BA00DC20BE /* Images.xcassets */; };
+		9EBB5DF519E1B1BA00DC20BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EBB5DF319E1B1BA00DC20BE /* Main.storyboard */; };
+		9EBB5E0119E1B1BA00DC20BE /* EasyLocalizeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EBB5E0019E1B1BA00DC20BE /* EasyLocalizeTests.m */; };
+		9EBB5E1A19E1B3B300DC20BE /* StorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EBB5E1919E1B3B300DC20BE /* StorageManager.m */; };
+		9ECA5EAC19E4B78700101512 /* LocalizationEntryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ECA5EAB19E4B78700101512 /* LocalizationEntryTableViewCell.m */; };
+		9ECA5EAE19E4B7A900101512 /* TranslationCells.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ECA5EAD19E4B7A900101512 /* TranslationCells.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9EBB5DFB19E1B1BA00DC20BE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9EBB5DD619E1B1BA00DC20BE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9EBB5DDD19E1B1BA00DC20BE;
+			remoteInfo = EasyLocalize;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		9E18E32C19E57AC200F902B3 /* LocalizedStringsTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizedStringsTableView.h; sourceTree = "<group>"; };
+		9E18E32D19E57AC200F902B3 /* LocalizedStringsTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizedStringsTableView.m; sourceTree = "<group>"; };
+		9E3BD7BD19E92F7900A8B03C /* LocalizedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizedString.h; sourceTree = "<group>"; };
+		9E3BD7BE19E92F7900A8B03C /* LocalizedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizedString.m; sourceTree = "<group>"; };
+		9E3BD7C019E92F7A00A8B03C /* LocalizableFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizableFile.h; sourceTree = "<group>"; };
+		9E3BD7C119E92F7A00A8B03C /* LocalizableFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizableFile.m; sourceTree = "<group>"; };
+		9E3BD7C319E92F7A00A8B03C /* LocalizationEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizationEntry.h; sourceTree = "<group>"; };
+		9E3BD7C419E92F7A00A8B03C /* LocalizationEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizationEntry.m; sourceTree = "<group>"; };
+		9E3BD7C619E942C100A8B03C /* LocalizableProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizableProject.h; sourceTree = "<group>"; };
+		9E3BD7C719E942C100A8B03C /* LocalizableProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizableProject.m; sourceTree = "<group>"; };
+		9E3BD7C919E99AA500A8B03C /* Language.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Language.h; sourceTree = "<group>"; };
+		9E3BD7CA19E99AA500A8B03C /* Language.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Language.m; sourceTree = "<group>"; };
+		9E42DD9919E4561F006655B0 /* FetchResultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FetchResultsController.h; sourceTree = "<group>"; };
+		9E42DD9A19E4561F006655B0 /* FetchResultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FetchResultsController.m; sourceTree = "<group>"; };
+		9E5203E619E1C120003A1145 /* ProjectDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectDocument.h; sourceTree = "<group>"; };
+		9E5203E719E1C120003A1145 /* ProjectDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectDocument.m; sourceTree = "<group>"; };
+		9E5203EA19E1C1AC003A1145 /* SingleFileWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleFileWindowController.h; sourceTree = "<group>"; };
+		9E5203EB19E1C1AC003A1145 /* SingleFileWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleFileWindowController.m; sourceTree = "<group>"; };
+		9E5203ED19E1C1BE003A1145 /* ProjectWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectWindowController.h; sourceTree = "<group>"; };
+		9E5203EE19E1C1BE003A1145 /* ProjectWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectWindowController.m; sourceTree = "<group>"; };
+		9E5203F519E1E8C3003A1145 /* SingleFileSidebarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleFileSidebarController.h; sourceTree = "<group>"; };
+		9E5203F619E1E8C3003A1145 /* SingleFileSidebarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleFileSidebarController.m; sourceTree = "<group>"; };
+		9E5203F819E1E924003A1145 /* LocalizedStringsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizedStringsTableViewController.h; sourceTree = "<group>"; };
+		9E5203F919E1E924003A1145 /* LocalizedStringsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizedStringsTableViewController.m; sourceTree = "<group>"; };
+		9E5203FF19E1F333003A1145 /* SidebarCells.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SidebarCells.xib; sourceTree = "<group>"; };
+		9E52040119E1F69D003A1145 /* SidebarTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarTableCellView.h; sourceTree = "<group>"; };
+		9E52040219E1F69D003A1145 /* SidebarTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarTableCellView.m; sourceTree = "<group>"; };
+		9E52040419E1FDBA003A1145 /* SidebarCheckboxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarCheckboxCell.h; sourceTree = "<group>"; };
+		9E52040519E1FDBA003A1145 /* SidebarCheckboxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarCheckboxCell.m; sourceTree = "<group>"; };
+		9E52040719E211D5003A1145 /* LanguageValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageValueTransformer.h; sourceTree = "<group>"; };
+		9E52040819E211D5003A1145 /* LanguageValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageValueTransformer.m; sourceTree = "<group>"; };
+		9E8C03F719EB3CA4005BE9AB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
+		9EAB8AC419ECA89A0090BFE5 /* EasyLocalize.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = EasyLocalize.entitlements; sourceTree = "<group>"; };
+		9EBB5DDE19E1B1BA00DC20BE /* EasyLocalize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyLocalize.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9EBB5DE219E1B1BA00DC20BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9EBB5DE319E1B1BA00DC20BE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		9EBB5DE419E1B1BA00DC20BE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		9EBB5DE619E1B1BA00DC20BE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9EBB5DEB19E1B1BA00DC20BE /* SingleFileDocument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SingleFileDocument.h; sourceTree = "<group>"; };
+		9EBB5DEC19E1B1BA00DC20BE /* SingleFileDocument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SingleFileDocument.m; sourceTree = "<group>"; };
+		9EBB5DEF19E1B1BA00DC20BE /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		9EBB5DF119E1B1BA00DC20BE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		9EBB5DF419E1B1BA00DC20BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9EBB5DFA19E1B1BA00DC20BE /* EasyLocalizeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EasyLocalizeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9EBB5DFF19E1B1BA00DC20BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9EBB5E0019E1B1BA00DC20BE /* EasyLocalizeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EasyLocalizeTests.m; sourceTree = "<group>"; };
+		9EBB5E1819E1B3B300DC20BE /* StorageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StorageManager.h; sourceTree = "<group>"; };
+		9EBB5E1919E1B3B300DC20BE /* StorageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StorageManager.m; sourceTree = "<group>"; };
+		9EBB5E1B19E1B62300DC20BE /* Errors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Errors.h; sourceTree = "<group>"; };
+		9ECA5EAA19E4B78700101512 /* LocalizationEntryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizationEntryTableViewCell.h; sourceTree = "<group>"; };
+		9ECA5EAB19E4B78700101512 /* LocalizationEntryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizationEntryTableViewCell.m; sourceTree = "<group>"; };
+		9ECA5EAD19E4B7A900101512 /* TranslationCells.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TranslationCells.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9EBB5DDB19E1B1BA00DC20BE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9EBB5DF719E1B1BA00DC20BE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9E5203E919E1C18F003A1145 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				9E5203FC19E1F2EB003A1145 /* Project */,
+				9E5203FB19E1F2E0003A1145 /* Single File */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		9E5203FB19E1F2E0003A1145 /* Single File */ = {
+			isa = PBXGroup;
+			children = (
+				9E5203EA19E1C1AC003A1145 /* SingleFileWindowController.h */,
+				9E5203EB19E1C1AC003A1145 /* SingleFileWindowController.m */,
+				9E5203FD19E1F2FB003A1145 /* Sidebar */,
+				9E5203FE19E1F301003A1145 /* Translations */,
+			);
+			name = "Single File";
+			sourceTree = "<group>";
+		};
+		9E5203FC19E1F2EB003A1145 /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				9E5203ED19E1C1BE003A1145 /* ProjectWindowController.h */,
+				9E5203EE19E1C1BE003A1145 /* ProjectWindowController.m */,
+			);
+			name = Project;
+			sourceTree = "<group>";
+		};
+		9E5203FD19E1F2FB003A1145 /* Sidebar */ = {
+			isa = PBXGroup;
+			children = (
+				9E5203F519E1E8C3003A1145 /* SingleFileSidebarController.h */,
+				9E5203F619E1E8C3003A1145 /* SingleFileSidebarController.m */,
+				9E5203FF19E1F333003A1145 /* SidebarCells.xib */,
+				9E52040119E1F69D003A1145 /* SidebarTableCellView.h */,
+				9E52040219E1F69D003A1145 /* SidebarTableCellView.m */,
+				9E52040419E1FDBA003A1145 /* SidebarCheckboxCell.h */,
+				9E52040519E1FDBA003A1145 /* SidebarCheckboxCell.m */,
+				9E52040719E211D5003A1145 /* LanguageValueTransformer.h */,
+				9E52040819E211D5003A1145 /* LanguageValueTransformer.m */,
+			);
+			name = Sidebar;
+			sourceTree = "<group>";
+		};
+		9E5203FE19E1F301003A1145 /* Translations */ = {
+			isa = PBXGroup;
+			children = (
+				9E18E32C19E57AC200F902B3 /* LocalizedStringsTableView.h */,
+				9E18E32D19E57AC200F902B3 /* LocalizedStringsTableView.m */,
+				9E5203F819E1E924003A1145 /* LocalizedStringsTableViewController.h */,
+				9E5203F919E1E924003A1145 /* LocalizedStringsTableViewController.m */,
+				9ECA5EAA19E4B78700101512 /* LocalizationEntryTableViewCell.h */,
+				9ECA5EAB19E4B78700101512 /* LocalizationEntryTableViewCell.m */,
+				9ECA5EAD19E4B7A900101512 /* TranslationCells.xib */,
+			);
+			name = Translations;
+			sourceTree = "<group>";
+		};
+		9EBB5DD519E1B1BA00DC20BE = {
+			isa = PBXGroup;
+			children = (
+				9EBB5DE019E1B1BA00DC20BE /* EasyLocalize */,
+				9EBB5DFD19E1B1BA00DC20BE /* EasyLocalizeTests */,
+				9EBB5DDF19E1B1BA00DC20BE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9EBB5DDF19E1B1BA00DC20BE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9EBB5DDE19E1B1BA00DC20BE /* EasyLocalize.app */,
+				9EBB5DFA19E1B1BA00DC20BE /* EasyLocalizeTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9EBB5DE019E1B1BA00DC20BE /* EasyLocalize */ = {
+			isa = PBXGroup;
+			children = (
+				9EAB8AC419ECA89A0090BFE5 /* EasyLocalize.entitlements */,
+				9E5203E919E1C18F003A1145 /* ViewControllers */,
+				9EBB5E1619E1B33900DC20BE /* Model */,
+				9EBB5DE319E1B1BA00DC20BE /* AppDelegate.h */,
+				9EBB5DE419E1B1BA00DC20BE /* AppDelegate.m */,
+				9EBB5DF119E1B1BA00DC20BE /* Images.xcassets */,
+				9EBB5DF319E1B1BA00DC20BE /* Main.storyboard */,
+				9EBB5DEE19E1B1BA00DC20BE /* Model.xcdatamodeld */,
+				9EBB5DE119E1B1BA00DC20BE /* Supporting Files */,
+			);
+			path = EasyLocalize;
+			sourceTree = "<group>";
+		};
+		9EBB5DE119E1B1BA00DC20BE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9EBB5DE219E1B1BA00DC20BE /* Info.plist */,
+				9EBB5DE619E1B1BA00DC20BE /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9EBB5DFD19E1B1BA00DC20BE /* EasyLocalizeTests */ = {
+			isa = PBXGroup;
+			children = (
+				9EBB5E0019E1B1BA00DC20BE /* EasyLocalizeTests.m */,
+				9EBB5DFE19E1B1BA00DC20BE /* Supporting Files */,
+			);
+			path = EasyLocalizeTests;
+			sourceTree = "<group>";
+		};
+		9EBB5DFE19E1B1BA00DC20BE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9EBB5DFF19E1B1BA00DC20BE /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9EBB5E1619E1B33900DC20BE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9EBB5DEB19E1B1BA00DC20BE /* SingleFileDocument.h */,
+				9EBB5DEC19E1B1BA00DC20BE /* SingleFileDocument.m */,
+				9E5203E619E1C120003A1145 /* ProjectDocument.h */,
+				9E5203E719E1C120003A1145 /* ProjectDocument.m */,
+				9EBB5E1719E1B33E00DC20BE /* CoreData */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		9EBB5E1719E1B33E00DC20BE /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				9E3BD7C919E99AA500A8B03C /* Language.h */,
+				9E3BD7CA19E99AA500A8B03C /* Language.m */,
+				9E3BD7C619E942C100A8B03C /* LocalizableProject.h */,
+				9E3BD7C719E942C100A8B03C /* LocalizableProject.m */,
+				9E3BD7C019E92F7A00A8B03C /* LocalizableFile.h */,
+				9E3BD7C119E92F7A00A8B03C /* LocalizableFile.m */,
+				9E3BD7C319E92F7A00A8B03C /* LocalizationEntry.h */,
+				9E3BD7C419E92F7A00A8B03C /* LocalizationEntry.m */,
+				9E3BD7BD19E92F7900A8B03C /* LocalizedString.h */,
+				9E3BD7BE19E92F7900A8B03C /* LocalizedString.m */,
+				9EBB5E1B19E1B62300DC20BE /* Errors.h */,
+				9EBB5E1819E1B3B300DC20BE /* StorageManager.h */,
+				9EBB5E1919E1B3B300DC20BE /* StorageManager.m */,
+				9E42DD9919E4561F006655B0 /* FetchResultsController.h */,
+				9E42DD9A19E4561F006655B0 /* FetchResultsController.m */,
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9EBB5DDD19E1B1BA00DC20BE /* EasyLocalize */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9EBB5E0419E1B1BA00DC20BE /* Build configuration list for PBXNativeTarget "EasyLocalize" */;
+			buildPhases = (
+				9EBB5DDA19E1B1BA00DC20BE /* Sources */,
+				9EBB5DDB19E1B1BA00DC20BE /* Frameworks */,
+				9EBB5DDC19E1B1BA00DC20BE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EasyLocalize;
+			productName = EasyLocalize;
+			productReference = 9EBB5DDE19E1B1BA00DC20BE /* EasyLocalize.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9EBB5DF919E1B1BA00DC20BE /* EasyLocalizeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9EBB5E0719E1B1BA00DC20BE /* Build configuration list for PBXNativeTarget "EasyLocalizeTests" */;
+			buildPhases = (
+				9EBB5DF619E1B1BA00DC20BE /* Sources */,
+				9EBB5DF719E1B1BA00DC20BE /* Frameworks */,
+				9EBB5DF819E1B1BA00DC20BE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9EBB5DFC19E1B1BA00DC20BE /* PBXTargetDependency */,
+			);
+			name = EasyLocalizeTests;
+			productName = EasyLocalizeTests;
+			productReference = 9EBB5DFA19E1B1BA00DC20BE /* EasyLocalizeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9EBB5DD619E1B1BA00DC20BE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Sebastian Husche";
+				TargetAttributes = {
+					9EBB5DDD19E1B1BA00DC20BE = {
+						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = PRHDGE2Y28;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
+					};
+					9EBB5DF919E1B1BA00DC20BE = {
+						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = PRHDGE2Y28;
+						TestTargetID = 9EBB5DDD19E1B1BA00DC20BE;
+					};
+				};
+			};
+			buildConfigurationList = 9EBB5DD919E1B1BA00DC20BE /* Build configuration list for PBXProject "EasyLocalize" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9EBB5DD519E1B1BA00DC20BE;
+			productRefGroup = 9EBB5DDF19E1B1BA00DC20BE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9EBB5DDD19E1B1BA00DC20BE /* EasyLocalize */,
+				9EBB5DF919E1B1BA00DC20BE /* EasyLocalizeTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9EBB5DDC19E1B1BA00DC20BE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9EBB5DF219E1B1BA00DC20BE /* Images.xcassets in Resources */,
+				9EBB5DF519E1B1BA00DC20BE /* Main.storyboard in Resources */,
+				9E52040019E1F333003A1145 /* SidebarCells.xib in Resources */,
+				9ECA5EAE19E4B7A900101512 /* TranslationCells.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9EBB5DF819E1B1BA00DC20BE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9EBB5DDA19E1B1BA00DC20BE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9EBB5DED19E1B1BA00DC20BE /* SingleFileDocument.m in Sources */,
+				9EBB5DE719E1B1BA00DC20BE /* main.m in Sources */,
+				9EBB5DF019E1B1BA00DC20BE /* Model.xcdatamodeld in Sources */,
+				9E5203FA19E1E924003A1145 /* LocalizedStringsTableViewController.m in Sources */,
+				9E52040619E1FDBA003A1145 /* SidebarCheckboxCell.m in Sources */,
+				9E5203F719E1E8C3003A1145 /* SingleFileSidebarController.m in Sources */,
+				9E3BD7CB19E99AA500A8B03C /* Language.m in Sources */,
+				9EBB5DE519E1B1BA00DC20BE /* AppDelegate.m in Sources */,
+				9E5203EC19E1C1AC003A1145 /* SingleFileWindowController.m in Sources */,
+				9ECA5EAC19E4B78700101512 /* LocalizationEntryTableViewCell.m in Sources */,
+				9E3BD7BF19E92F7900A8B03C /* LocalizedString.m in Sources */,
+				9E52040919E211D5003A1145 /* LanguageValueTransformer.m in Sources */,
+				9E18E32E19E57AC200F902B3 /* LocalizedStringsTableView.m in Sources */,
+				9E3BD7C519E92F7A00A8B03C /* LocalizationEntry.m in Sources */,
+				9E3BD7C219E92F7A00A8B03C /* LocalizableFile.m in Sources */,
+				9E52040319E1F69D003A1145 /* SidebarTableCellView.m in Sources */,
+				9E3BD7C819E942C100A8B03C /* LocalizableProject.m in Sources */,
+				9EBB5E1A19E1B3B300DC20BE /* StorageManager.m in Sources */,
+				9E5203E819E1C120003A1145 /* ProjectDocument.m in Sources */,
+				9E42DD9B19E4561F006655B0 /* FetchResultsController.m in Sources */,
+				9E5203F019E1C1BE003A1145 /* ProjectWindowController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9EBB5DF619E1B1BA00DC20BE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9EBB5E0119E1B1BA00DC20BE /* EasyLocalizeTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9EBB5DFC19E1B1BA00DC20BE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9EBB5DDD19E1B1BA00DC20BE /* EasyLocalize */;
+			targetProxy = 9EBB5DFB19E1B1BA00DC20BE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		9EBB5DF319E1B1BA00DC20BE /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9EBB5DF419E1B1BA00DC20BE /* Base */,
+				9E8C03F719EB3CA4005BE9AB /* de */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9EBB5E0219E1B1BA00DC20BE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		9EBB5E0319E1B1BA00DC20BE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		9EBB5E0519E1B1BA00DC20BE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = EasyLocalize/EasyLocalize.entitlements;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = EasyLocalize/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Debug;
+		};
+		9EBB5E0619E1B1BA00DC20BE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = EasyLocalize/EasyLocalize.entitlements;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = EasyLocalize/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+		9EBB5E0819E1B1BA00DC20BE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = EasyLocalizeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EasyLocalize.app/Contents/MacOS/EasyLocalize";
+			};
+			name = Debug;
+		};
+		9EBB5E0919E1B1BA00DC20BE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = EasyLocalizeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EasyLocalize.app/Contents/MacOS/EasyLocalize";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9EBB5DD919E1B1BA00DC20BE /* Build configuration list for PBXProject "EasyLocalize" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9EBB5E0219E1B1BA00DC20BE /* Debug */,
+				9EBB5E0319E1B1BA00DC20BE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9EBB5E0419E1B1BA00DC20BE /* Build configuration list for PBXNativeTarget "EasyLocalize" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9EBB5E0519E1B1BA00DC20BE /* Debug */,
+				9EBB5E0619E1B1BA00DC20BE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9EBB5E0719E1B1BA00DC20BE /* Build configuration list for PBXNativeTarget "EasyLocalizeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9EBB5E0819E1B1BA00DC20BE /* Debug */,
+				9EBB5E0919E1B1BA00DC20BE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9EBB5DEE19E1B1BA00DC20BE /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9EBB5DEF19E1B1BA00DC20BE /* Model.xcdatamodel */,
+			);
+			currentVersion = 9EBB5DEF19E1B1BA00DC20BE /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 9EBB5DD619E1B1BA00DC20BE /* Project object */;
+}
