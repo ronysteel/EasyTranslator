@@ -696,7 +696,7 @@
                         <splitViewItem canCollapse="YES" id="Cwa-2J-w87"/>
                         <splitViewItem id="Zgf-dH-9I1"/>
                     </splitViewItems>
-                    <splitView key="splitView" dividerStyle="thin" vertical="YES" id="wDG-CA-6B7">
+                    <splitView key="splitView" wantsLayer="YES" dividerStyle="thin" vertical="YES" id="wDG-CA-6B7">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </splitView>
@@ -786,7 +786,7 @@
                                                     </connections>
                                                 </tableView>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="d13-iC-lq9">
                                             <rect key="frame" x="1" y="119" width="223" height="15"/>
@@ -807,6 +807,7 @@
                                     <constraint firstAttribute="width" priority="249" constant="250" id="ijm-xb-J2B"/>
                                     <constraint firstAttribute="trailing" secondItem="7fb-7N-XLu" secondAttribute="trailing" id="n2l-Xb-YO7"/>
                                     <constraint firstItem="7vw-dh-1mj" firstAttribute="top" secondItem="zHb-al-G02" secondAttribute="top" constant="70" id="qqj-hL-Tfn"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="450" id="rXg-Lv-VPz"/>
                                     <constraint firstItem="Xsf-4M-8HL" firstAttribute="leading" secondItem="7vw-dh-1mj" secondAttribute="leading" id="y93-sJ-JpG"/>
                                 </constraints>
                             </visualEffectView>
@@ -866,13 +867,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
+                            <visualEffectView wantsLayer="YES" blendingMode="behindWindow" material="light" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="MhV-rv-jC5">
+                                <rect key="frame" x="0.0" y="249" width="450" height="51"/>
+                            </visualEffectView>
                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aNv-7b-b7R">
-                                <rect key="frame" x="0.0" y="40" width="450" height="260"/>
-                                <clipView key="contentView" misplaced="YES" drawsBackground="NO" copiesOnScroll="NO" id="waJ-fG-ZiW">
+                                <rect key="frame" x="0.0" y="40" width="450" height="209"/>
+                                <clipView key="contentView" misplaced="YES" id="waJ-fG-ZiW">
                                     <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView identifier="Translation Table View" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" alternatingRowBackgroundColors="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" rowSizeStyle="automatic" headerView="aWm-Bt-wSp" viewBased="YES" floatsGroupRows="NO" id="Ywz-CJ-YAi" customClass="LocalizedStringsTableView">
+                                        <tableView identifier="Translation Table View" verticalHuggingPriority="750" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" alternatingRowBackgroundColors="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" typeSelect="NO" rowSizeStyle="automatic" headerView="aWm-Bt-wSp" viewBased="YES" floatsGroupRows="NO" id="Ywz-CJ-YAi" customClass="LocalizedStringsTableView">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -948,11 +952,15 @@
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="aNv-7b-b7R" secondAttribute="bottom" constant="40" id="5HJ-jb-X1u"/>
+                            <constraint firstItem="aNv-7b-b7R" firstAttribute="top" secondItem="MhV-rv-jC5" secondAttribute="bottom" id="Ned-eQ-osb"/>
                             <constraint firstItem="aNv-7b-b7R" firstAttribute="leading" secondItem="hdg-p0-d4D" secondAttribute="leading" id="PRA-9c-TuA"/>
+                            <constraint firstItem="MhV-rv-jC5" firstAttribute="leading" secondItem="hdg-p0-d4D" secondAttribute="leading" id="Ujb-Bk-bGt"/>
                             <constraint firstItem="ncp-jC-5dE" firstAttribute="top" secondItem="aNv-7b-b7R" secondAttribute="bottom" constant="10" id="VxA-FU-fhQ"/>
                             <constraint firstItem="ncp-jC-5dE" firstAttribute="leading" secondItem="hdg-p0-d4D" secondAttribute="leading" constant="20" id="Vzo-va-Wqs"/>
-                            <constraint firstItem="aNv-7b-b7R" firstAttribute="top" secondItem="hdg-p0-d4D" secondAttribute="top" id="ZUb-bm-XUw"/>
+                            <constraint firstItem="aNv-7b-b7R" firstAttribute="top" secondItem="hdg-p0-d4D" secondAttribute="top" constant="51" id="ZUb-bm-XUw"/>
+                            <constraint firstAttribute="trailing" secondItem="MhV-rv-jC5" secondAttribute="trailing" id="kcu-fI-9Ne"/>
                             <constraint firstAttribute="trailing" secondItem="aNv-7b-b7R" secondAttribute="trailing" id="nZ6-7w-FwO"/>
+                            <constraint firstItem="MhV-rv-jC5" firstAttribute="top" secondItem="hdg-p0-d4D" secondAttribute="top" id="uB8-nE-beq"/>
                         </constraints>
                     </view>
                     <connections>

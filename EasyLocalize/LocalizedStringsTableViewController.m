@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSNib *nib = [[NSNib alloc] initWithNibNamed:@"TranslationCells" bundle:nil];
-    [self.tableView registerNib:nib forIdentifier:@"TranslationUnitTableViewCell"];
+    [self.tableView registerNib:nib forIdentifier:@"TranslationEntryTableCellView"];
     [self.tableView setAutosaveName:@"SingleFileTableView"];
     [self.tableView setAutosaveTableColumns:YES];
     self.editedRow = NSNotFound;
@@ -80,7 +80,7 @@
 
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
 
-    LocalizationEntryTableViewCell *cell = [tableView makeViewWithIdentifier:@"TranslationUnitTableViewCell" owner:self];
+    LocalizationEntryTableViewCell *cell = [tableView makeViewWithIdentifier:@"TranslationEntryTableCellView" owner:self];
     
     NSDictionary *dataDict = self.datasource[row];
     

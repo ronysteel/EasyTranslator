@@ -56,13 +56,17 @@
 }
 
 - (void)setObjectValue:(id)objectValue {
-    [super setObjectValue:objectValue];
-    [self updateContents];
+    if (self.objectValue != objectValue) {
+        [super setObjectValue:objectValue];
+        [self updateContents];
+    }
 }
 
 - (void)setEditable:(BOOL)editable {
-    _editable = editable;
-    [self updateContents];
+    if (_editable != editable) {
+        _editable = editable;
+        [self updateContents];
+    }
 }
 
 - (void)setSelected:(BOOL)selected {

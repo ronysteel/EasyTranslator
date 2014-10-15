@@ -92,7 +92,7 @@
     [linePath moveToPoint:(NSPoint){NSMinX(self.bounds) + 20, NSMaxY(self.bounds) - 1.0f}];
     [linePath lineToPoint:(NSPoint){NSMaxX(self.bounds)     , NSMaxY(self.bounds) - 1.0f}];
     
-    [[NSColor quaternaryLabelColor] set];
+    [[NSColor gridColor] set];
     linePath.lineWidth = 1.0f;
     [linePath stroke];
     

@@ -55,12 +55,9 @@
     if ([self.managedObjectContext hasChanges]) {
         [self.managedObjectContext save:nil];
     }
-    
-    NSUInteger batchSize = 20;
     if ([self.delegate respondsToSelector:@selector(numberOfVisibleRecordsForController:)]) {
-        batchSize = [self.delegate numberOfVisibleRecordsForController:self];
+        fetchRequest.fetchBatchSize = [self.delegate numberOfVisibleRecordsForController:self];
     }
-    fetchRequest.fetchBatchSize = batchSize;
     return [super fetchWithRequest:fetchRequest merge:merge error:error];
 }
 

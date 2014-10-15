@@ -29,6 +29,10 @@
 @implementation LocalizedStringsTableView
 @synthesize selectedIndexPath = _selectedIndexPath;
 
+- (BOOL)allowsVibrancy {
+    return YES;
+}
+
 - (void)setSelectedIndexPath:(NSIndexPath *)selectedIndexPath {
     if ([_selectedIndexPath isEqual:selectedIndexPath]) {
         return;

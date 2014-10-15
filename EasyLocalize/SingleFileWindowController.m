@@ -21,8 +21,7 @@
 
 - (void)windowDidLoad {
     [super windowDidLoad];
-    self.window.appearance = [NSAppearance appearanceNamed:NSAppearanceNameVibrantLight];
-    self.window.titlebarAppearsTransparent = NO;
+    self.window.titlebarAppearsTransparent = YES;
     self.splitViewController = (id)self.contentViewController;
     self.sidebarViewController = (id)[self.splitViewController.splitViewItems[0] viewController];
     self.translationsViewController = (id)[self.splitViewController.splitViewItems[1] viewController];
