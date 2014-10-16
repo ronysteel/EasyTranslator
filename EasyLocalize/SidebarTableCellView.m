@@ -11,11 +11,14 @@
 
 @interface SidebarTableCellView ()
 @property(nonatomic, weak) IBOutlet NSButton *checkBox;
+@property (weak) IBOutlet NSTextField *labelFilepath;
 @property(nonatomic, weak) IBOutlet NSTextField *labelTotal;
 @property(nonatomic, weak) IBOutlet NSTextField *labelMissing;
 @property(nonatomic, weak) IBOutlet NSTextField *labelTotalNo;
 @property(nonatomic, weak) IBOutlet NSTextField *labelMissingNo;
 @property(nonatomic, readonly) LocalizableFile* file;
+@property(nonatomic, strong) NSMutableDictionary *currentTitleAttributes;
+
 
 @end
 
@@ -23,6 +26,20 @@
 
 - (BOOL)allowsVibrancy {
     return YES;
+}
+
+- (NSMutableDictionary *)currentTitleAttributes {
+    if (!_currentTitleAttributes) {
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+        paragraphStyle.lineBreakMode = NSLineBreakByTruncatingHead;
+        paragraphStyle.tighteningFactorForTruncation = 0.0f;
+        _currentTitleAttributes = [@{
+                                     NSFontAttributeName : [NSFont fontWithName:@"HelveticaNeue" size:14],
+                                     NSForegroundColorAttributeName : [NSColor labelColor],
+                                     NSParagraphStyleAttributeName: paragraphStyle
+                                     } mutableCopy];
+    }
+    return _currentTitleAttributes;
 }
 
 - (NSDictionary *)titleAttributes {
@@ -33,7 +50,7 @@
         paragraphStyle.lineBreakMode = NSLineBreakByTruncatingHead;
         paragraphStyle.tighteningFactorForTruncation = 0.0f;
         attributes = @{
-                       NSFontAttributeName : [NSFont fontWithName:@"HelveticaNeue" size:13],
+                       NSFontAttributeName : [NSFont fontWithName:@"HelveticaNeue" size:14],
                        NSForegroundColorAttributeName : [NSColor labelColor],
                        NSParagraphStyleAttributeName: paragraphStyle
                        };
@@ -49,7 +66,7 @@
         paragraphStyle.lineBreakMode = NSLineBreakByTruncatingHead;
         paragraphStyle.tighteningFactorForTruncation = 0.0f;
         disabledAttributes = @{
-                               NSFontAttributeName : [NSFont fontWithName:@"HelveticaNeue" size:13],
+                               NSFontAttributeName : [NSFont fontWithName:@"HelveticaNeue" size:14],
                                NSForegroundColorAttributeName : [NSColor tertiaryLabelColor],
                                NSParagraphStyleAttributeName: paragraphStyle
                                };
@@ -61,28 +78,34 @@
     return (LocalizableFile *)self.objectValue;
 }
 
-- (void)updateContents {
-    
+- (void)updateUI {
     BOOL selected = self.file.selected;
+    NSColor *textColor = selected ? [NSColor labelColor] : [NSColor tertiaryLabelColor];
+    self.currentTitleAttributes[NSForegroundColorAttributeName] = textColor;
+    self.labelFilepath.textColor = textColor;
+    self.labelTotal.textColor = textColor;
+    self.labelTotalNo.textColor = textColor;
+    self.labelMissing.textColor = textColor;
+    self.labelMissingNo.textColor = textColor;
+    self.checkBox.state = self.file.selected ? NSOnState : NSOffState;
     
-    NSDictionary *attributes = selected ? [self titleAttributes] : [self disabledTitleAttributes];
-    
-    NSString *title = [NSString stringWithFormat:@"%@", self.file.original];
-    self.checkBox.attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attributes];
-
+    NSString *filename = [self.file.original lastPathComponent];
+    NSString *filepath = [self.file.original stringByDeletingLastPathComponent];
+    filepath = [filepath stringByAppendingString:@"/"];
+    self.checkBox.attributedTitle = [[NSAttributedString alloc] initWithString:filename attributes:self.currentTitleAttributes];
+    self.labelFilepath.stringValue = filepath;
     self.labelTotalNo.stringValue = [NSString stringWithFormat:@"%lu", self.file.numberOfLocalizedStrings];
     self.labelMissingNo.stringValue = [NSString stringWithFormat:@"%lu", self.file.numberOfIncompleteLocalizedStrings];
 }
 
 - (void)setObjectValue:(id)objectValue {
     [super setObjectValue:objectValue];
-    [self.checkBox unbind:@"value"];
-    [self updateContents];
-    [self.checkBox bind:@"value" toObject:self.file withKeyPath:@"selected" options:nil];
+    [self updateUI];
 }
 
 - (IBAction)checkboxClicked:(id)sender {
-    [self updateContents];
+    self.file.selected = self.checkBox.state == NSOnState;
+    [self updateUI];
 }
 
 - (void)drawRect:(NSRect)dirtyRect {

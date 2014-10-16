@@ -149,16 +149,13 @@
                                                 <action selector="paste:" target="Ady-hI-5gd" id="UvS-8e-Qdg"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Paste and Match Style" keyEquivalent="V" id="WeT-3V-zwk">
-                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="pasteAsPlainText:" target="Ady-hI-5gd" id="cEh-KX-wJQ"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem title="Delete" id="pa3-QI-u2k">
+                                            <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="delete:" target="Ady-hI-5gd" id="0Mk-Ml-PaM"/>
+                                                <action selector="deleteBackward:" target="Ady-hI-5gd" id="Vl5-z5-kEu"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Select All" keyEquivalent="a" id="Ruw-6m-B2m">
@@ -645,7 +642,7 @@
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="0.0"/>
+            <point key="canvasLocation" x="-359.5" y="-158"/>
         </scene>
         <!--Single File Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -804,6 +801,7 @@
                                     <constraint firstItem="7vw-dh-1mj" firstAttribute="leading" secondItem="zHb-al-G02" secondAttribute="leading" constant="20" id="9ih-kd-s82"/>
                                     <constraint firstItem="7fb-7N-XLu" firstAttribute="leading" secondItem="zHb-al-G02" secondAttribute="leading" id="AYd-BD-4EX"/>
                                     <constraint firstItem="Xsf-4M-8HL" firstAttribute="top" secondItem="7vw-dh-1mj" secondAttribute="baseline" constant="2" id="NBo-qa-Yey"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="QSq-d0-DZ5"/>
                                     <constraint firstAttribute="width" priority="249" constant="250" id="ijm-xb-J2B"/>
                                     <constraint firstAttribute="trailing" secondItem="7fb-7N-XLu" secondAttribute="trailing" id="n2l-Xb-YO7"/>
                                     <constraint firstItem="7vw-dh-1mj" firstAttribute="top" secondItem="zHb-al-G02" secondAttribute="top" constant="70" id="qqj-hL-Tfn"/>

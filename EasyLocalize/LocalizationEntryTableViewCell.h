@@ -23,5 +23,7 @@ typedef void (^EntryTableCellEndEditingBlock)(LocalizationEntryTableViewCell *ce
 @property(nonatomic, copy) EntryTableCellEndEditingBlock cellEditingEndBlock;
 
 - (void)beginEditing;
+- (void)updateObjectValue;
+
 
 @end

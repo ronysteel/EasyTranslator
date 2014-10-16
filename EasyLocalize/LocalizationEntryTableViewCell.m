@@ -114,6 +114,25 @@
     }
 }
 
+- (void)updateObjectValue {
+    if (!self.isEditable) {
+        return;
+    }
+    
+    NSString *newTitle = self.textField.stringValue;
+    if (newTitle.length == 0) {
+        newTitle = nil;
+    }
+    if (newTitle == self.localizedString.translatedString
+        || [newTitle isEqualToString:self.localizedString.translatedString]) {
+        
+        return;
+    }
+    
+    self.localizedString.translatedString = newTitle;
+    [self.localizedString.managedObjectContext save:nil];
+}
+
 - (void)updateContents {
     NSString *title = nil;
     LocalizedString *stringValue = self.localizedString;
@@ -143,12 +162,7 @@
 
 - (void)controlTextDidEndEditing:(NSNotification *)notification {
     if (notification.object == self.textField) {
-        NSString *newTitle = self.textField.stringValue;
-        if (newTitle.length == 0) {
-            newTitle = nil;
-        }
-        self.localizedString.translatedString = newTitle;
-        [self.localizedString.managedObjectContext save:nil];
+        [self updateObjectValue];
         [self endEditing];
     }
 }

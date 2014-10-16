@@ -31,24 +31,45 @@
 
 - (void)viewWillAppear {
     [super viewWillAppear];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reloadData:)
-                                                 name:kLocalizationEntriesDidChangeNotification
-                                               object:self.storageManager];
+
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    
+    [nc addObserver:self
+           selector:@selector(reloadData:)
+               name:kLocalizationEntriesDidChangeNotification
+             object:self.storageManager];
+    
+    
+    [nc addObserver:self
+           selector:@selector(undoManagerPerformedAction:)
+               name:NSUndoManagerDidUndoChangeNotification
+             object:nil];
+
+    [nc addObserver:self
+           selector:@selector(undoManagerPerformedAction:)
+               name:NSUndoManagerDidRedoChangeNotification
+             object:nil];
 }
 
 - (void)viewWillDisappear {
     [super viewWillDisappear];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:kLocalizationEntriesDidChangeNotification
-                                                  object:self.storageManager];
+    
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+
+    [nc removeObserver:self name:kLocalizationEntriesDidChangeNotification object:self.storageManager];
+    [nc removeObserver:self name:NSUndoManagerDidUndoChangeNotification object:nil];
+    [nc removeObserver:self name:NSUndoManagerDidRedoChangeNotification object:nil];
 }
 
-
-
-
-- (IBAction)copy:(id)sender {
-    
+- (LocalizationEntryTableViewCell *)selectedCell {
+    NSIndexPath *path = self.tableView.selectedIndexPath;
+    if (!path || path.row == NSNotFound || path.column == NSNotFound) {
+        return nil;
+    }
+    LocalizationEntryTableViewCell *selectedCell = [self.tableView viewAtColumn:path.column
+                                                                            row:path.row
+                                                                makeIfNecessary:YES];
+    return selectedCell;
 }
 
 - (id)objectValueForColumn:(NSUInteger)column row:(NSUInteger)row {
@@ -218,6 +239,112 @@
     [self.tableView reloadData];
     NSLog(@"Reloading");
 }
+
+
+
+
+#pragma mark - Menu validation and actions
+
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
+    LocalizationEntryTableViewCell *selectedCell = [self selectedCell];
+    
+    if (menuItem.action == @selector(copy:) || menuItem.action == @selector(cut:)) {
+        return selectedCell.textField.stringValue.length > 0;
+    } else if (menuItem.action == @selector(paste:)) {
+        return selectedCell.isEditable && [[NSPasteboard generalPasteboard] stringForType:NSStringPboardType] != nil;
+    } else if (menuItem.action == @selector(deleteBackward:)) {
+        return selectedCell.isEditable && selectedCell.textField.stringValue.length > 0;
+    } else if (menuItem.action == @selector(undo:)) {
+        return [self.storageManager.mainUIContext.undoManager canUndo];
+    } else if (menuItem.action == @selector(redo:)) {
+        return [self.storageManager.mainUIContext.undoManager canRedo];
+    }
+    else {
+        return [super validateMenuItem:menuItem];
+    }
+}
+
+- (void)undoManagerPerformedAction:(NSNotification *)notification {
+    if (notification.object == self.storageManager.mainUIContext.undoManager) {
+        [self reloadData:nil];
+    }
+}
+
+- (IBAction)undo:(id)sender {
+    [self.storageManager.mainUIContext.undoManager undo];
+}
+
+- (IBAction)redo:(id)sender {
+    [self.storageManager.mainUIContext.undoManager redo];
+}
+
+- (IBAction)deleteBackward:(id)sender {
+    [self delete:sender];
+}
+
+- (IBAction)delete:(id)sender {
+    LocalizationEntryTableViewCell *selectedCell = [self selectedCell];
+    if (!selectedCell.isEditable) {
+        return;
+    }
+    selectedCell.textField.stringValue = @"";
+    [selectedCell updateObjectValue];
+}
+
+- (IBAction)copy:(id)sender {
+    LocalizationEntryTableViewCell *selectedCell = [self selectedCell];
+    if (!selectedCell) {
+        return;
+    }
+    
+    NSString *string = selectedCell.textField.stringValue;
+    if (string.length == 0) {
+        return;
+    }
+    
+    NSPasteboard *pasteBoard = [NSPasteboard generalPasteboard];
+    [pasteBoard declareTypes: [NSArray arrayWithObject:NSStringPboardType] owner: self];
+    [pasteBoard setString:string forType:NSStringPboardType];
+}
+
+- (IBAction)paste:(id)sender {
+    LocalizationEntryTableViewCell *selectedCell = [self selectedCell];
+    if (!selectedCell.isEditable) {
+        return;
+    }
+    
+    NSPasteboard *pasteBoard = [NSPasteboard generalPasteboard];
+    NSString *pastedString = [pasteBoard stringForType:NSStringPboardType];
+    if (pastedString.length == 0) {
+        return;
+    }
+    
+    selectedCell.textField.stringValue = pastedString;
+    [selectedCell updateObjectValue];
+}
+
+- (IBAction)cut:(id)sender {
+    LocalizationEntryTableViewCell *selectedCell = [self selectedCell];
+    if (!selectedCell) {
+        return;
+    }
+    
+    NSString *string = selectedCell.textField.stringValue;
+    if (string.length == 0) {
+        return;
+    }
+    
+    NSPasteboard *pasteBoard = [NSPasteboard generalPasteboard];
+    [pasteBoard declareTypes: [NSArray arrayWithObject:NSStringPboardType] owner: self];
+    [pasteBoard setString:string forType:NSStringPboardType];
+    
+    if (selectedCell.isEditable) {
+        selectedCell.textField.stringValue = @"";
+        [selectedCell updateObjectValue];
+    }
+}
+
+
 
 - (IBAction)refetch:(id)sender {
 }
