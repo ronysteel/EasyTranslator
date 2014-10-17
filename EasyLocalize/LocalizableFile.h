@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class LocalizationEntry, LocalizableProject;
+@class LocalizationEntry, LocalizableProject, Language;
 
 @interface LocalizableFile : NSManagedObject
 
@@ -24,6 +24,8 @@
 @property(nonatomic, readonly) NSUInteger numberOfIncompleteLocalizedStrings;
 
 + (instancetype)localizableFileInProject:(LocalizableProject *)project withElement:(NSXMLElement *)element;
+
+- (NSXMLNode *)xmlNodeForSourceLanguage:(Language *)sourceLanguage target:(Language *)targetLanguage;
 
 
 @end

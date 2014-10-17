@@ -9,7 +9,7 @@
 #import "LocalizationEntry.h"
 #import "LocalizableFile.h"
 #import "LocalizedString.h"
-
+#import "Language.h"
 
 @implementation LocalizationEntry
 
@@ -64,5 +64,42 @@
     }];
     return entry;
 }
+
+- (NSXMLNode *)xmlNodeForSourceLanguage:(Language *)sourceLanguage target:(Language *)targetLanguage {
+    
+    NSXMLElement *entryNode = [NSXMLElement elementWithName:@"trans-unit"];
+    [entryNode addAttribute:[NSXMLNode attributeWithName:@"id" stringValue:self.identifier]];
+    
+    NSXMLElement *sourceElement = nil;
+    NSXMLElement *targetElement = nil;
+    
+    for (LocalizedString *string in self.localizedStrings) {
+        if ([string.language.languageCode isEqualToString:sourceLanguage.languageCode]) {
+            sourceElement = [NSXMLElement elementWithName:@"source" stringValue:string.translatedString];
+        } else if ([string.language.languageCode isEqualToString:targetLanguage.languageCode] && string.translatedString.length > 0) {
+            targetElement = [NSXMLElement elementWithName:@"target" stringValue:string.translatedString];
+        }
+        if (targetElement && sourceElement) {
+            break;
+        }
+    }
+    
+    if (!sourceElement) {
+        NSLog(@"Source string not found");
+        return nil;
+    }
+    
+    [entryNode addChild:sourceElement];
+    if (targetElement) {
+        [entryNode addChild:targetElement];
+    }
+    
+    if (self.note.length) {
+        NSXMLElement *noteElement = [NSXMLElement elementWithName:@"note" stringValue:self.note];
+        [entryNode addChild:noteElement];
+    }
+    return entryNode;
+}
+
 
 @end

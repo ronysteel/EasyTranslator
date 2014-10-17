@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class LocalizableFile, LocalizedString;
+@class LocalizableFile, LocalizedString, Language;
 
 @interface LocalizationEntry : NSManagedObject
 
@@ -19,5 +19,7 @@
 @property(nonatomic, retain) LocalizableFile *localizableFile;
 
 + (instancetype)localizationEntryInFile:(LocalizableFile *)file withElement:(NSXMLElement *)element;
+
+- (NSXMLNode *)xmlNodeForSourceLanguage:(Language *)sourceLanguage target:(Language *)targetLanguage;
 
 @end

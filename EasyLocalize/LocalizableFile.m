@@ -9,7 +9,7 @@
 #import "LocalizableFile.h"
 #import "LocalizableProject.h"
 #import "LocalizationEntry.h"
-
+#import "Language.h"
 
 @implementation LocalizableFile
 
@@ -68,6 +68,36 @@
         }
     }];
     return file;
+}
+
+- (NSXMLNode *)xmlNodeForSourceLanguage:(Language *)sourceLanguage target:(Language *)targetLanguage {
+    
+    NSXMLElement *fileNode = [NSXMLNode elementWithName:@"file"];
+    [fileNode addAttribute:[NSXMLNode attributeWithName:@"original" stringValue:self.original]];
+    [fileNode addAttribute:[NSXMLNode attributeWithName:@"source-language" stringValue:sourceLanguage.languageCode]];
+    [fileNode addAttribute:[NSXMLNode attributeWithName:@"datatype" stringValue:self.dataType]];
+    [fileNode addAttribute:[NSXMLNode attributeWithName:@"target-language" stringValue:targetLanguage.languageCode]];
+    
+    NSError *error = nil;
+    
+    NSXMLElement *header = [[NSXMLElement alloc] initWithXMLString:self.headerString error:&error];
+    if (!header) {
+        NSLog(@"Could not create header node from header string: %@", error.localizedDescription);
+    }
+    [fileNode addChild:header];
+    
+    NSXMLElement *body = [NSXMLElement elementWithName:@"body"];
+    for (LocalizationEntry *entry in self.localisationEntries) {
+        NSXMLNode *entryNode = [entry xmlNodeForSourceLanguage:sourceLanguage target:targetLanguage];
+        if (entryNode) {
+            [body addChild:entryNode];
+        } else {
+            NSLog(@"Could not create node for entry.");
+            return nil;
+        }
+    }
+    [fileNode addChild:body];
+    return fileNode;
 }
 
 - (NSUInteger)numberOfLocalizedStrings {

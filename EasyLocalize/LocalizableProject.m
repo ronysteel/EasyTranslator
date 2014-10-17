@@ -62,4 +62,19 @@
     return project;
 }
 
+- (NSArray *)xmlNodesForSourceLanguage:(Language *)sourceLanguage target:(Language *)targetLanguage {
+    NSMutableArray * fileNodes = [NSMutableArray arrayWithCapacity:self.localizableFiles.count];
+    for (LocalizableFile *file in self.localizableFiles) {
+        NSXMLNode *fileNode = [file xmlNodeForSourceLanguage:sourceLanguage target:targetLanguage];
+        if (fileNode) {
+            [fileNodes addObject:fileNode];
+        } else {
+            NSLog(@"Could not create node for file");
+            return nil;
+        }
+    }
+    return [fileNodes copy];
+}
+
+
 @end

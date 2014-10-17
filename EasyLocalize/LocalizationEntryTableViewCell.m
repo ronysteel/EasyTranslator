@@ -120,9 +120,11 @@
     }
     
     NSString *newTitle = self.textField.stringValue;
+    
     if (newTitle.length == 0) {
         newTitle = nil;
     }
+
     if (newTitle == self.localizedString.translatedString
         || [newTitle isEqualToString:self.localizedString.translatedString]) {
         
@@ -144,7 +146,6 @@
    
     NSColor *textColor = self.editable ? [NSColor controlTextColor] : [NSColor disabledControlTextColor];
     [self.textField setTextColor:textColor];
-    
     self.textField.stringValue = title ? title : @"";
 }
 

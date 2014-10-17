@@ -17,6 +17,9 @@
 static NSString * const kLocalizationEntriesDidChangeNotification = @"kLocalizaationEntriesDidChange";
 static NSString * const kLocalizableFilesDidChangeNotification = @"kLocalizableFilesDidChange";
 static NSString * const kSelectedLocalizableFilesDidChangeNotification = @"kSelectedLocalizableFilesDidChange";
+static NSString * const kWillSaveChangesNotification = @"kWillSaveChanges";
+static NSString * const kDidSaveChangesNotification = @"kDidSaveChanges";
+
 
 @interface StorageManager : NSObject
 
@@ -35,6 +38,8 @@ static NSString * const kSelectedLocalizableFilesDidChangeNotification = @"kSele
 - (instancetype)initWithError:(NSError **)error;
 
 - (BOOL)importXLIFFDocument:(NSXMLDocument *)xliffDocument error:(NSError **)outError;
+
+- (NSXMLDocument *)exportXLIFFDocument:(NSError **)outError;
 
 - (NSManagedObjectContext *)newChildContext;
 

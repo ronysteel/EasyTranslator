@@ -19,5 +19,6 @@
 + (instancetype)localizableProjectWithElement:(NSXMLElement *)element
                        inManagedObjectContext:(NSManagedObjectContext *)context;
 
+- (NSArray *)xmlNodesForSourceLanguage:(Language *)sourceLanguage target:(Language *)targetLanguage;
 
 @end

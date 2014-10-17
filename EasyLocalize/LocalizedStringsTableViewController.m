@@ -272,10 +272,12 @@
 
 - (IBAction)undo:(id)sender {
     [self.storageManager.mainUIContext.undoManager undo];
+    [self.storageManager.mainUIContext save:nil];
 }
 
 - (IBAction)redo:(id)sender {
     [self.storageManager.mainUIContext.undoManager redo];
+    [self.storageManager.mainUIContext save:nil];
 }
 
 - (IBAction)deleteBackward:(id)sender {

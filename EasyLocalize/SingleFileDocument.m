@@ -14,6 +14,7 @@
 @interface SingleFileDocument ()
 @property(nonatomic, strong) NSXMLDocument *xliffDocument;
 @property(nonatomic, strong) StorageManager *storageManager;
+@property(nonatomic, strong) SingleFileWindowController *windowController;
 @end
 
 @implementation SingleFileDocument
@@ -25,10 +26,10 @@
 - (void)makeWindowControllers {
     // Override to return the Storyboard file name of the document.
     NSStoryboard *storyboard = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
-    SingleFileWindowController *windowController
+    self.windowController
     = [storyboard instantiateControllerWithIdentifier:@"Single File Window Controller"];
-    windowController.storageManager = self.storageManager;
-    [self addWindowController:windowController];
+    self.windowController.storageManager = self.storageManager;
+    [self addWindowController:self.windowController];
 }
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError *__autoreleasing *)outError {
@@ -59,12 +60,34 @@
         self.xliffDocument = xliffDocument;
     }
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(storageManagerWillSaveChanges:)
+                                                 name:kWillSaveChangesNotification
+                                               object:self.storageManager];
+    
+    
     return result;
+}
+
+- (void)storageManagerWillSaveChanges:(NSNotification *)notification {
+    [self.windowController.window setDocumentEdited:YES];
+}
+
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError *__autoreleasing *)outError {
-    return nil;
+    if (self.storageManager.mainUIContext.hasChanges) {
+        if (![self.storageManager.mainUIContext save:outError]) {
+            return nil;
+        }
+    }
+    
+    NSXMLDocument *xliffDocument = [self.storageManager exportXLIFFDocument:outError];
+    return [xliffDocument XMLDataWithOptions:NSXMLNodePrettyPrint];
 }
 
 

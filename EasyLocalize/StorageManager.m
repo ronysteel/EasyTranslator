@@ -36,7 +36,8 @@
         NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Model" withExtension:@"momd"];
         self.managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
         if (self.managedObjectModel) {
-            self.storeCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
+            self.storeCoordinator
+            = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
             if (self.storeCoordinator) {
                 
                 NSPersistentStore *store = [self.storeCoordinator addPersistentStoreWithType:NSSQLiteStoreType
@@ -57,7 +58,9 @@
                     return nil;
                 }
 
-                self.mainUIContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+                self.mainUIContext
+                = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+                
                 self.mainUIContext.persistentStoreCoordinator = self.storeCoordinator;
                 self.mainUIContext.undoManager = [[NSUndoManager alloc] init];
 
@@ -78,12 +81,17 @@
     }
     
     self.localizationEntriesFetchController = [FetchResultsController new];
+    
     NSArray *sortDescriptors = @[
                                  [NSSortDescriptor sortDescriptorWithKey:@"localizableFile.original" ascending:YES],
                                  [NSSortDescriptor sortDescriptorWithKey:@"identifier" ascending:YES]
                                  ];
+    
     self.localizationEntriesFetchController.entityName = @"LocalizationEntry";
-    self.localizationEntriesFetchController.fetchPredicate = [NSPredicate predicateWithFormat:@"localizableFile.selected = YES"];
+    
+    self.localizationEntriesFetchController.fetchPredicate
+    = [NSPredicate predicateWithFormat:@"localizableFile.selected = YES"];
+    
     self.localizationEntriesFetchController.sortDescriptors = sortDescriptors;
     self.localizationEntriesFetchController.managedObjectContext = _mainUIContext;
     self.localizationEntriesFetchController.delegate = self;
@@ -91,19 +99,24 @@
     
     
     self.localizableFilesFetchController = [FetchResultsController new];
+    
     sortDescriptors = @[
                         [NSSortDescriptor sortDescriptorWithKey:@"original" ascending:YES],
                         ];
+    
     self.localizableFilesFetchController.entityName = @"LocalizableFile";
     self.localizableFilesFetchController.sortDescriptors = sortDescriptors;
     self.localizableFilesFetchController.managedObjectContext = _mainUIContext;
     self.localizableFilesFetchController.delegate = self;
     [self.localizableFilesFetchController fetch:nil];
     
+    
     self.selectedFilesFetchController = [FetchResultsController new];
+    
     sortDescriptors = @[
                         [NSSortDescriptor sortDescriptorWithKey:@"original" ascending:YES],
                         ];
+    
     self.selectedFilesFetchController.entityName = @"LocalizableFile";
     self.selectedFilesFetchController.fetchPredicate = [NSPredicate predicateWithFormat:@"selected = YES"];
     self.selectedFilesFetchController.sortDescriptors = sortDescriptors;
@@ -111,6 +124,11 @@
     self.selectedFilesFetchController.delegate = self;
     [self.selectedFilesFetchController fetch:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(managedObjectContextWillSave:)
+                                                 name:NSManagedObjectContextWillSaveNotification
+                                               object:nil];
+
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(managedObjectContextDidSave:)
@@ -136,7 +154,8 @@
                                                                         create:YES
                                                                          error:nil];
         
-        _persistentStoreURL = [appSupportURL URLByAppendingPathComponent:[NSString stringWithFormat:@"db_%@", [NSUUID UUID].UUIDString]];
+        _persistentStoreURL = [appSupportURL URLByAppendingPathComponent:[NSString stringWithFormat:@"db_%@",
+                                                                          [NSUUID UUID].UUIDString]];
         
     }
     return _persistentStoreURL;
@@ -172,7 +191,7 @@
     [context performBlockAndWait:^{
     
         NSUndoManager *undoManager = context.undoManager;
-        context.undoManager = nil;
+        [context.undoManager disableUndoRegistration];
         
         LocalizableProject *project = [LocalizableProject localizableProjectWithElement:xliffDocument.rootElement
                                                                  inManagedObjectContext:context];
@@ -239,7 +258,7 @@
             }
         }
         success = [context save:&error];
-        context.undoManager = undoManager;
+        [undoManager enableUndoRegistration];
     }];
     if (outError) {
         *outError = error;
@@ -248,8 +267,90 @@
     return success;
 }
 
+- (NSXMLDocument *)exportXLIFFDocument:(NSError **)outError {
+    if (self.mainUIContext.hasChanges) {
+        if (![self.mainUIContext save:outError]) {
+            return nil;
+        }
+    }
+    
+    NSXMLElement *rootElement = [[NSXMLElement alloc] initWithName:@"xliff"];
+    NSXMLElement *namespace = [NSXMLElement namespaceWithName:@"" stringValue:@"urn:oasis:names:tc:xliff:document:1.2"];
+    [rootElement addNamespace:namespace];
+    
+    NSString *schemaURL = @"http://www.w3.org/2001/XMLSchema-instance";
+    
+    NSXMLElement *xsiNamespace = [NSXMLElement namespaceWithName:@"xsi" stringValue:schemaURL];
+    [rootElement addNamespace:xsiNamespace];
+    
+    NSXMLNode *schemaLocationAttributeXmlNode =
+    [NSXMLNode attributeWithName:@"xsi:schemaLocation"
+                             URI:schemaURL
+                     stringValue:@"urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd"];
+    
+    [rootElement addAttribute:schemaLocationAttributeXmlNode];
+    
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"LocalizableProject"];
+    LocalizableProject *project = [[self.mainUIContext executeFetchRequest:fetchRequest error:outError] firstObject];
+    if (!project) {
+        return nil;
+    }
+    
+    Language *sourceLanguage = nil;
+    Language *targetLanguage = nil;
+    
+    for (Language *language in project.languages) {
+        if (language.isSourceLanguage) {
+            sourceLanguage = language;
+        } else {
+            targetLanguage = language;
+        }
+        if (sourceLanguage && targetLanguage) {
+            break;
+        }
+    }
+    
+    if (!sourceLanguage) {
+        NSLog(@"Did not find source language");
+        return nil;
+    }
+
+    if (!targetLanguage) {
+        NSLog(@"Did not find target language");
+        return nil;
+    }
+    
+    NSArray *childNodes = [project xmlNodesForSourceLanguage:sourceLanguage target:targetLanguage];
+    if (!childNodes) {
+        NSLog(@"No child nodes for export found.");
+        return nil;
+    }
+    
+    for (NSXMLNode *child in childNodes) {
+        [rootElement addChild:child];
+    }
+    
+    NSXMLDocument *xliffDocument = [[NSXMLDocument alloc] initWithRootElement:rootElement];
+    if (xliffDocument) {
+        [xliffDocument setVersion:@"1.2"];
+        [xliffDocument setCharacterEncoding:@"UTF-8"];
+        [xliffDocument setStandalone:NO];
+    }
+    
+    return xliffDocument;
+}
+
 
 #pragma mark - Managed Object Context Handling
+
+- (void)managedObjectContextWillSave:(NSNotification *)notification {
+    NSManagedObjectContext *context = notification.object;
+    if (context == self.mainUIContext) {
+        if ([context hasChanges]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kWillSaveChangesNotification object:self];
+        }
+    }
+}
 
 - (void)managedObjectContextDidSave:(NSNotification *)notification {
     NSManagedObjectContext *context = notification.object;
@@ -258,6 +359,8 @@
             [self.mainUIContext mergeChangesFromContextDidSaveNotification:notification];
             [self.mainUIContext save:nil];
         }];
+    } else if (context == self.mainUIContext) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kDidSaveChangesNotification object:self];
     }
 }
 

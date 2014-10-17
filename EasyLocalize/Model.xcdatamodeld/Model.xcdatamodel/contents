@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14A388a" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14A389" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Language" representedClassName="Language" syncable="YES">
         <attribute name="isSourceLanguage" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="languageCode" optional="YES" attributeType="String" syncable="YES"/>
@@ -32,10 +32,10 @@
         <relationship name="localizationEntry" maxCount="1" deletionRule="Nullify" destinationEntity="LocalizationEntry" inverseName="localizedStrings" inverseEntity="LocalizationEntry" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Language" positionX="-27" positionY="72" width="128" height="118"/>
         <element name="LocalizableFile" positionX="-63" positionY="-18" width="128" height="133"/>
+        <element name="LocalizableProject" positionX="-36" positionY="72" width="128" height="75"/>
         <element name="LocalizationEntry" positionX="-36" positionY="54" width="128" height="103"/>
         <element name="LocalizedString" positionX="-45" positionY="45" width="128" height="103"/>
-        <element name="LocalizableProject" positionX="-36" positionY="72" width="128" height="73"/>
-        <element name="Language" positionX="-27" positionY="72" width="128" height="118"/>
     </elements>
 </model>
