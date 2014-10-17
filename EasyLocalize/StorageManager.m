@@ -46,26 +46,26 @@
                                                                                      options:nil
                                                                                        error:error];
                 
-//                NSPersistentStore *store = [self.storeCoordinator addPersistentStoreWithType:NSInMemoryStoreType
-//                                                                               configuration:nil
-//                                                                                         URL:nil
-//                                                                                     options:nil
-//                                                                                       error:error];
+                //                NSPersistentStore *store = [self.storeCoordinator addPersistentStoreWithType:NSInMemoryStoreType
+                //                                                                               configuration:nil
+                //                                                                                         URL:nil
+                //                                                                                     options:nil
+                //                                                                                       error:error];
                 if (!store) {
                     if (error) {
                         *error = errorWithCode(EasyLocalizeStorageInternalError, YES);
                     }
                     return nil;
                 }
-
+                
                 self.mainUIContext
                 = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
                 
                 self.mainUIContext.persistentStoreCoordinator = self.storeCoordinator;
                 self.mainUIContext.undoManager = [[NSUndoManager alloc] init];
-
+                
                 self.workContext = [self newChildContext];
-
+                
             } else {
                 if (error) {
                     *error = errorWithCode(EasyLocalizeStorageInternalError, YES);
@@ -78,62 +78,62 @@
             }
             return nil;
         }
+        
+        self.localizationEntriesFetchController = [FetchResultsController new];
+        
+        NSArray *sortDescriptors = @[
+                                     [NSSortDescriptor sortDescriptorWithKey:@"localizableFile.original" ascending:YES],
+                                     [NSSortDescriptor sortDescriptorWithKey:@"identifier" ascending:YES]
+                                     ];
+        
+        self.localizationEntriesFetchController.entityName = @"LocalizationEntry";
+        
+        self.localizationEntriesFetchController.fetchPredicate
+        = [NSPredicate predicateWithFormat:@"localizableFile.selected = YES"];
+        
+        self.localizationEntriesFetchController.sortDescriptors = sortDescriptors;
+        self.localizationEntriesFetchController.managedObjectContext = _mainUIContext;
+        self.localizationEntriesFetchController.delegate = self;
+        [self.localizationEntriesFetchController fetch:nil];
+        
+        
+        self.localizableFilesFetchController = [FetchResultsController new];
+        
+        sortDescriptors = @[
+                            [NSSortDescriptor sortDescriptorWithKey:@"original" ascending:YES],
+                            ];
+        
+        self.localizableFilesFetchController.entityName = @"LocalizableFile";
+        self.localizableFilesFetchController.sortDescriptors = sortDescriptors;
+        self.localizableFilesFetchController.managedObjectContext = _mainUIContext;
+        self.localizableFilesFetchController.delegate = self;
+        [self.localizableFilesFetchController fetch:nil];
+        
+        
+        self.selectedFilesFetchController = [FetchResultsController new];
+        
+        sortDescriptors = @[
+                            [NSSortDescriptor sortDescriptorWithKey:@"original" ascending:YES],
+                            ];
+        
+        self.selectedFilesFetchController.entityName = @"LocalizableFile";
+        self.selectedFilesFetchController.fetchPredicate = [NSPredicate predicateWithFormat:@"selected = YES"];
+        self.selectedFilesFetchController.sortDescriptors = sortDescriptors;
+        self.selectedFilesFetchController.managedObjectContext = _mainUIContext;
+        self.selectedFilesFetchController.delegate = self;
+        [self.selectedFilesFetchController fetch:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(managedObjectContextWillSave:)
+                                                     name:NSManagedObjectContextWillSaveNotification
+                                                   object:nil];
+        
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(managedObjectContextDidSave:)
+                                                     name:NSManagedObjectContextDidSaveNotification
+                                                   object:nil];
     }
-    
-    self.localizationEntriesFetchController = [FetchResultsController new];
-    
-    NSArray *sortDescriptors = @[
-                                 [NSSortDescriptor sortDescriptorWithKey:@"localizableFile.original" ascending:YES],
-                                 [NSSortDescriptor sortDescriptorWithKey:@"identifier" ascending:YES]
-                                 ];
-    
-    self.localizationEntriesFetchController.entityName = @"LocalizationEntry";
-    
-    self.localizationEntriesFetchController.fetchPredicate
-    = [NSPredicate predicateWithFormat:@"localizableFile.selected = YES"];
-    
-    self.localizationEntriesFetchController.sortDescriptors = sortDescriptors;
-    self.localizationEntriesFetchController.managedObjectContext = _mainUIContext;
-    self.localizationEntriesFetchController.delegate = self;
-    [self.localizationEntriesFetchController fetch:nil];
-    
-    
-    self.localizableFilesFetchController = [FetchResultsController new];
-    
-    sortDescriptors = @[
-                        [NSSortDescriptor sortDescriptorWithKey:@"original" ascending:YES],
-                        ];
-    
-    self.localizableFilesFetchController.entityName = @"LocalizableFile";
-    self.localizableFilesFetchController.sortDescriptors = sortDescriptors;
-    self.localizableFilesFetchController.managedObjectContext = _mainUIContext;
-    self.localizableFilesFetchController.delegate = self;
-    [self.localizableFilesFetchController fetch:nil];
-    
-    
-    self.selectedFilesFetchController = [FetchResultsController new];
-    
-    sortDescriptors = @[
-                        [NSSortDescriptor sortDescriptorWithKey:@"original" ascending:YES],
-                        ];
-    
-    self.selectedFilesFetchController.entityName = @"LocalizableFile";
-    self.selectedFilesFetchController.fetchPredicate = [NSPredicate predicateWithFormat:@"selected = YES"];
-    self.selectedFilesFetchController.sortDescriptors = sortDescriptors;
-    self.selectedFilesFetchController.managedObjectContext = _mainUIContext;
-    self.selectedFilesFetchController.delegate = self;
-    [self.selectedFilesFetchController fetch:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(managedObjectContextWillSave:)
-                                                 name:NSManagedObjectContextWillSaveNotification
-                                               object:nil];
-
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(managedObjectContextDidSave:)
-                                                 name:NSManagedObjectContextDidSaveNotification
-                                               object:nil];
     return self;
 }
 
@@ -189,7 +189,7 @@
     __block BOOL success;
     __block NSError *error;
     [context performBlockAndWait:^{
-    
+        
         NSUndoManager *undoManager = context.undoManager;
         [context.undoManager disableUndoRegistration];
         
@@ -224,7 +224,7 @@
             
             NSString *targetLanguageCode = [fileElement attributeForName:@"target-language"].stringValue;
             Language *targetLanguage = [Language languageWithLanguageCode:targetLanguageCode
-                                                   inProject:project];
+                                                                inProject:project];
             
             if (!targetLanguage) {
                 error = errorWithCode(EasyLocalizeStorageInternalError, YES);
@@ -244,7 +244,7 @@
                     success = NO;
                     return;
                 }
-
+                
                 LocalizedString *localizedString = [LocalizedString localizedStringInEntry:entry
                                                                                withElement:transUnitElement
                                                                             sourceLanguage:sourceLanguage
@@ -314,7 +314,7 @@
         NSLog(@"Did not find source language");
         return nil;
     }
-
+    
     if (!targetLanguage) {
         NSLog(@"Did not find target language");
         return nil;
