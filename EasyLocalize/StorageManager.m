@@ -22,25 +22,32 @@
 @property(nonatomic, strong) FetchResultsController *selectedFilesFetchController;
 @property(nonatomic, strong) FetchResultsController *localizationEntriesFetchController;
 
+@property(nonatomic, readonly) NSPredicate *fulltextSearchPredicate;
+@property(nonatomic, strong) NSArray *objectIDsFromSearchResults;
+@property(nonatomic, assign) NSInteger numActiveSearches;
+
 @end
 
 @implementation StorageManager
 @synthesize persistentStoreURL = _persistentStoreURL;
-
+@synthesize fulltextSearchPredicate = _fulltextSearchPredicate;
 
 #pragma mark - Init and Dealloc
 
 - (instancetype)initWithError:(NSError **)error {
     self = [super init];
     if (self) {
+        _fulltextSearchMode = FulltextSearchModeContains;
+        _fulltextSearchOptions = FulltextSearchOptionCaseInsensitive | FulltextSearchOptionDiacriticInsensitive;
+        
         NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Model" withExtension:@"momd"];
-        self.managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-        if (self.managedObjectModel) {
-            self.storeCoordinator
-            = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
-            if (self.storeCoordinator) {
+        _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+        if (_managedObjectModel) {
+            _storeCoordinator
+            = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_managedObjectModel];
+            if (_storeCoordinator) {
                 
-                NSPersistentStore *store = [self.storeCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+                NSPersistentStore *store = [_storeCoordinator addPersistentStoreWithType:NSSQLiteStoreType
                                                                                configuration:nil
                                                                                          URL:self.persistentStoreURL
                                                                                      options:nil
@@ -58,13 +65,13 @@
                     return nil;
                 }
                 
-                self.mainUIContext
+                _mainUIContext
                 = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
                 
-                self.mainUIContext.persistentStoreCoordinator = self.storeCoordinator;
-                self.mainUIContext.undoManager = [[NSUndoManager alloc] init];
+                _mainUIContext.persistentStoreCoordinator = _storeCoordinator;
+                _mainUIContext.undoManager = [[NSUndoManager alloc] init];
                 
-                self.workContext = [self newChildContext];
+                _workContext = [self newChildContext];
                 
             } else {
                 if (error) {
@@ -79,49 +86,49 @@
             return nil;
         }
         
-        self.localizationEntriesFetchController = [FetchResultsController new];
+        _localizationEntriesFetchController = [FetchResultsController new];
         
         NSArray *sortDescriptors = @[
                                      [NSSortDescriptor sortDescriptorWithKey:@"localizableFile.original" ascending:YES],
                                      [NSSortDescriptor sortDescriptorWithKey:@"identifier" ascending:YES]
                                      ];
         
-        self.localizationEntriesFetchController.entityName = @"LocalizationEntry";
+        _localizationEntriesFetchController.entityName = @"LocalizationEntry";
         
-        self.localizationEntriesFetchController.fetchPredicate
+        _localizationEntriesFetchController.fetchPredicate
         = [NSPredicate predicateWithFormat:@"localizableFile.selected = YES"];
         
-        self.localizationEntriesFetchController.sortDescriptors = sortDescriptors;
-        self.localizationEntriesFetchController.managedObjectContext = _mainUIContext;
-        self.localizationEntriesFetchController.delegate = self;
-        [self.localizationEntriesFetchController fetch:nil];
+        _localizationEntriesFetchController.sortDescriptors = sortDescriptors;
+        _localizationEntriesFetchController.managedObjectContext = _mainUIContext;
+        _localizationEntriesFetchController.delegate = self;
+        [_localizationEntriesFetchController fetch:nil];
         
         
-        self.localizableFilesFetchController = [FetchResultsController new];
-        
-        sortDescriptors = @[
-                            [NSSortDescriptor sortDescriptorWithKey:@"original" ascending:YES],
-                            ];
-        
-        self.localizableFilesFetchController.entityName = @"LocalizableFile";
-        self.localizableFilesFetchController.sortDescriptors = sortDescriptors;
-        self.localizableFilesFetchController.managedObjectContext = _mainUIContext;
-        self.localizableFilesFetchController.delegate = self;
-        [self.localizableFilesFetchController fetch:nil];
-        
-        
-        self.selectedFilesFetchController = [FetchResultsController new];
+        _localizableFilesFetchController = [FetchResultsController new];
         
         sortDescriptors = @[
                             [NSSortDescriptor sortDescriptorWithKey:@"original" ascending:YES],
                             ];
         
-        self.selectedFilesFetchController.entityName = @"LocalizableFile";
-        self.selectedFilesFetchController.fetchPredicate = [NSPredicate predicateWithFormat:@"selected = YES"];
-        self.selectedFilesFetchController.sortDescriptors = sortDescriptors;
-        self.selectedFilesFetchController.managedObjectContext = _mainUIContext;
-        self.selectedFilesFetchController.delegate = self;
-        [self.selectedFilesFetchController fetch:nil];
+        _localizableFilesFetchController.entityName = @"LocalizableFile";
+        _localizableFilesFetchController.sortDescriptors = sortDescriptors;
+        _localizableFilesFetchController.managedObjectContext = _mainUIContext;
+        _localizableFilesFetchController.delegate = self;
+        [_localizableFilesFetchController fetch:nil];
+        
+        
+        _selectedFilesFetchController = [FetchResultsController new];
+        
+        sortDescriptors = @[
+                            [NSSortDescriptor sortDescriptorWithKey:@"original" ascending:YES],
+                            ];
+        
+        _selectedFilesFetchController.entityName = @"LocalizableFile";
+        _selectedFilesFetchController.fetchPredicate = [NSPredicate predicateWithFormat:@"selected = YES"];
+        _selectedFilesFetchController.sortDescriptors = sortDescriptors;
+        _selectedFilesFetchController.managedObjectContext = _mainUIContext;
+        _selectedFilesFetchController.delegate = self;
+        [_selectedFilesFetchController fetch:nil];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(managedObjectContextWillSave:)
@@ -162,7 +169,12 @@
 }
 
 - (NSArray *)localizationEntries {
-    return self.localizationEntriesFetchController.arrangedObjects;
+    if (self.fulltextSearchstring.length == 0) {
+        return self.localizationEntriesFetchController.arrangedObjects;
+    } else {
+        NSArray *results = [self.localizationEntriesFetchController.arrangedObjects copy];
+        return [results filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"objectID IN %@", self.objectIDsFromSearchResults]];
+    }
 }
 
 - (NSArray *)localizableFiles {
@@ -172,6 +184,111 @@
 - (NSArray *)selectedLocalizableFiles {
     return self.selectedFilesFetchController.arrangedObjects;
 }
+
+- (void)setFulltextSearchMode:(FulltextSearchMode)fulltextSearchMode {
+    if (_fulltextSearchMode != fulltextSearchMode) {
+        _fulltextSearchMode = fulltextSearchMode;
+        _fulltextSearchPredicate = nil;
+        [self performSearchIfNeeded];
+    }
+}
+
+- (void)setFulltextSearchOptions:(FulltextSearchOptions)fulltextSearchOptions {
+    if (_fulltextSearchOptions != fulltextSearchOptions) {
+        _fulltextSearchOptions = fulltextSearchOptions;
+        _fulltextSearchPredicate = nil;
+        [self performSearchIfNeeded];
+    }
+}
+
+- (void)setFulltextSearchstring:(NSString *)fulltextSearchstring {
+    if (![_fulltextSearchstring isEqualToString:fulltextSearchstring]) {
+        _fulltextSearchstring = [fulltextSearchstring copy];
+        _fulltextSearchPredicate = nil;
+        [self performSearchIfNeeded];
+    }
+}
+
+- (NSPredicate *)fulltextSearchPredicate {
+    if (!self.fulltextSearchstring.length) {
+        return nil;
+    }
+    
+    if (!_fulltextSearchPredicate) {
+        NSString *modeString;
+        switch (self.fulltextSearchMode) {
+            case FulltextSearchModeBegins:
+                modeString = @"BEGINSWITH";
+                break;
+            case FulltextSearchModeEnds:
+                modeString = @"ENDSWITH";
+                break;
+            default:
+                modeString = @"CONTAINS";
+                break;
+        }
+        
+        NSString *optionsString = @"";
+        
+        if (self.fulltextSearchOptions & FulltextSearchOptionCaseInsensitive) {
+            optionsString = [optionsString stringByAppendingString:@"c"];
+        }
+        
+        if (self.fulltextSearchOptions & FulltextSearchOptionDiacriticInsensitive) {
+            optionsString = [optionsString stringByAppendingString:@"d"];
+        }
+        
+        if (optionsString.length > 0) {
+            modeString = [modeString stringByAppendingFormat:@"[%@]", optionsString];
+        }
+        
+        NSString *predicateString
+        = [NSString stringWithFormat:@"identifier %@ '%@' OR note %@ '%@' OR ANY localizedStrings.translatedString %@ '%@'",
+           modeString,
+           self.fulltextSearchstring,
+           modeString,
+           self.fulltextSearchstring,
+           modeString,
+           self.fulltextSearchstring
+           ];
+
+        _fulltextSearchPredicate = [NSPredicate predicateWithFormat:predicateString];
+    }
+    return _fulltextSearchPredicate;
+}
+
+
+- (void)performSearchIfNeeded {
+    NSManagedObjectContext *searchContext = [self newChildContext];
+    NSPredicate *predicate = self.fulltextSearchPredicate;
+    if (!predicate) {
+        if (self.objectIDsFromSearchResults) {
+            self.objectIDsFromSearchResults = nil;
+            [self controllerDidChangeContents:self.localizationEntriesFetchController];
+        }
+        return;
+    }
+    
+    self.numActiveSearches ++;
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [searchContext performBlock:^{
+            NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"LocalizationEntry"];
+            fetchRequest.resultType = NSManagedObjectIDResultType;
+            fetchRequest.predicate = predicate;
+            NSError *error = nil;
+            NSArray *objectIDs = [searchContext executeFetchRequest:fetchRequest error:&error];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (!objectIDs) {
+                    NSLog(@"Error while searching: %@", error.localizedDescription);
+                }
+                self.objectIDsFromSearchResults = [objectIDs copy];
+                [self controllerDidChangeContents:self.localizationEntriesFetchController];
+                self.numActiveSearches --;
+            });
+        }];
+    });
+}
+
 
 #pragma mark - Import
 
@@ -357,10 +474,13 @@
     if (context == self.workContext) {
         [self.mainUIContext performBlockAndWait:^{
             [self.mainUIContext mergeChangesFromContextDidSaveNotification:notification];
-            [self.mainUIContext save:nil];
+            if ([self.mainUIContext hasChanges]) {
+                [self.mainUIContext save:nil];
+            }
         }];
     } else if (context == self.mainUIContext) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kDidSaveChangesNotification object:self];
+        [self performSearchIfNeeded];
     }
 }
 
@@ -369,7 +489,6 @@
     context.persistentStoreCoordinator = self.storeCoordinator;
     return context;
 }
-
 
 #pragma mark - FetchResultsController delegate
 

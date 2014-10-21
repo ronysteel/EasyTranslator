@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="6249" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6249"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -642,7 +642,7 @@ CA
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-359.5" y="-158"/>
+            <point key="canvasLocation" x="51.5" y="-45"/>
         </scene>
         <!--Single File Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -658,16 +658,19 @@ CA
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="0zJ-eu-F8m"/>
                                 <toolbarItem implicitItemIdentifier="439C359F-D045-4369-A541-F66C16CF586B" label="Custom View" paletteLabel="Custom View" id="Mkm-VS-A5a">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="96" height="22"/>
-                                    <size key="maxSize" width="96" height="22"/>
+                                    <size key="minSize" width="200" height="19"/>
+                                    <size key="maxSize" width="200" height="22"/>
                                     <searchField key="view" wantsLayer="YES" verticalHuggingPriority="750" id="LOV-PH-2bH">
-                                        <rect key="frame" x="0.0" y="0.0" width="96" height="22"/>
+                                        <rect key="frame" x="0.0" y="14" width="200" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="t8Q-BY-QhM">
+                                        <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" usesSingleLineMode="YES" bezelStyle="round" maximumRecents="10" id="t8Q-BY-QhM">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </searchFieldCell>
+                                        <connections>
+                                            <action selector="search:" target="jGA-0Y-lOj" id="oB7-5u-5sq"/>
+                                        </connections>
                                     </searchField>
                                 </toolbarItem>
                             </allowedToolbarItems>
@@ -678,12 +681,13 @@ CA
                         </toolbar>
                     </window>
                     <connections>
+                        <outlet property="searchField" destination="LOV-PH-2bH" id="99t-Qg-Pza"/>
                         <segue destination="yYM-g3-pqt" kind="relationship" relationship="window.shadowedContentViewController" id="zfS-Yd-yKc"/>
                     </connections>
                 </windowController>
                 <customObject id="6f7-a7-6o1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="250"/>
+            <point key="canvasLocation" x="60" y="250"/>
         </scene>
         <!--Single File Splitview Controller-->
         <scene sceneID="5Td-r3-zws">

@@ -15,6 +15,8 @@
 @property(nonatomic, strong) NSSplitViewController *splitViewController;
 @property(nonatomic, strong) SingleFileSidebarController *sidebarViewController;
 @property(nonatomic, strong) LocalizedStringsTableViewController *translationsViewController;
+@property (weak) IBOutlet NSSearchField *searchField;
+
 @end
 
 @implementation SingleFileWindowController
@@ -39,5 +41,14 @@
         [self updateSubviewControllers];
     }
 }
+
+- (IBAction)search:(id)sender {
+    self.storageManager.fulltextSearchstring = self.searchField.stringValue;
+}
+
+- (IBAction)performFindPanelAction:(id)sender {
+    [self.window makeFirstResponder:self.searchField];
+}
+
 
 @end

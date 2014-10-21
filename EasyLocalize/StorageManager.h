@@ -14,12 +14,22 @@
 #import "LocalizedString.h"
 #import "Language.h"
 
-static NSString * const kLocalizationEntriesDidChangeNotification = @"kLocalizaationEntriesDidChange";
+static NSString * const kLocalizationEntriesDidChangeNotification = @"kLocalizationEntriesDidChange";
 static NSString * const kLocalizableFilesDidChangeNotification = @"kLocalizableFilesDidChange";
 static NSString * const kSelectedLocalizableFilesDidChangeNotification = @"kSelectedLocalizableFilesDidChange";
 static NSString * const kWillSaveChangesNotification = @"kWillSaveChanges";
 static NSString * const kDidSaveChangesNotification = @"kDidSaveChanges";
 
+typedef NS_ENUM(NSInteger, FulltextSearchMode) {
+    FulltextSearchModeContains = 0,
+    FulltextSearchModeBegins,
+    FulltextSearchModeEnds
+};
+
+typedef NS_ENUM(NSInteger, FulltextSearchOptions) {
+    FulltextSearchOptionCaseInsensitive = 1 << 0,
+    FulltextSearchOptionDiacriticInsensitive = 1 << 1
+};
 
 @interface StorageManager : NSObject
 
@@ -34,6 +44,10 @@ static NSString * const kDidSaveChangesNotification = @"kDidSaveChanges";
 @property(nonatomic, readonly) Language *sourceLanguage;
 @property(nonatomic, readonly) NSArray *availableTargetLanguages;
 @property(nonatomic, readonly) NSArray *selectedTargetLanguages;
+
+@property(nonatomic, strong) NSString *fulltextSearchstring;
+@property(nonatomic, assign) FulltextSearchMode fulltextSearchMode;
+@property(nonatomic, assign) FulltextSearchOptions fulltextSearchOptions;
 
 - (instancetype)initWithError:(NSError **)error;
 
